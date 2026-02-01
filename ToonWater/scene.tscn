@@ -81,7 +81,8 @@ render_priority = 0
 shader = ExtResource("4_u3cyc")
 shader_parameter/WaterColor = Color(0.2540559, 0.7350228, 0.99999994, 0.654902)
 shader_parameter/ColorParameter = Color(1, 1, 1, 1)
-shader_parameter/FloatParameter2 = 0.0
+shader_parameter/FloatParameter = 0.75
+shader_parameter/FoamPower = 200.0
 
 [node name="Node3D" type="Node3D"]
 
@@ -127,6 +128,6 @@ skeleton = NodePath("../..")
 surface_material_override/0 = SubResource("StandardMaterial3D_st7n6")
 
 [node name="water" type="MeshInstance3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.045458257, 0)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.049249083, 0)
 mesh = SubResource("PlaneMesh_m7jmp")
 surface_material_override/0 = SubResource("ShaderMaterial_y2354")
