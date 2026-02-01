@@ -83,6 +83,7 @@ shader_parameter/WaterColor = Color(0.2540559, 0.7350228, 0.99999994, 0.654902)
 shader_parameter/ColorParameter = Color(1, 1, 1, 1)
 shader_parameter/FloatParameter = 0.75
 shader_parameter/FoamPower = 200.0
+shader_parameter/WaveSpeed = Vector2(0.02, 0.01)
 
 [node name="Node3D" type="Node3D"]
 
