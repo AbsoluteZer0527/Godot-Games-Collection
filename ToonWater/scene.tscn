@@ -81,7 +81,7 @@ render_priority = 0
 shader = ExtResource("4_u3cyc")
 shader_parameter/WaterColor = Color(0.2540559, 0.7350228, 0.99999994, 0.654902)
 shader_parameter/ColorParameter = Color(1, 1, 1, 1)
-shader_parameter/FloatParameter = 0.72
+shader_parameter/FloatParameter2 = 0.0
 
 [node name="Node3D" type="Node3D"]
 
