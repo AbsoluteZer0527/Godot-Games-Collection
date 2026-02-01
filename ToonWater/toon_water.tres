@@ -31,8 +31,11 @@ operator = 2
 [sub_resource type="FastNoiseLite" id="FastNoiseLite_aa035"]
 
 [sub_resource type="NoiseTexture2D" id="NoiseTexture2D_ruyfn"]
+width = 256
+height = 256
 noise = SubResource("FastNoiseLite_aa035")
 as_normal_map = true
+bump_strength = 2.1
 
 [sub_resource type="VisualShaderNodeTexture" id="VisualShaderNodeTexture_xrknh"]
 output_port_for_preview = 0

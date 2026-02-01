@@ -1,4 +1,4 @@
-[gd_scene load_steps=18 format=3 uid="uid://fm0p76em2bx8"]
+[gd_scene load_steps=21 format=3 uid="uid://fm0p76em2bx8"]
 
 [ext_resource type="ArrayMesh" uid="uid://dls8qw3swa7b1" path="res://ground.res" id="1_rs42a"]
 [ext_resource type="Texture2D" uid="uid://ddbpp8qbl8tog" path="res://images.png" id="3_bxm5n"]
@@ -85,6 +85,67 @@ shader_parameter/FloatParameter = 0.75
 shader_parameter/FoamPower = 200.0
 shader_parameter/WaveSpeed = Vector2(0.02, 0.01)
 
+[sub_resource type="Animation" id="Animation_u3cyc"]
+resource_name = "water flow"
+loop_mode = 2
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 1),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Vector3(0, -0.049249083, 0), Vector3(0, -0.03326252, 0)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("../swimming ring:position")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 1),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Vector3(0, -0.05778455, 0), Vector3(0, -0.04385402, 0)]
+}
+
+[sub_resource type="Animation" id="Animation_m7jmp"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector3(0, -0.049249083, 0)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("../swimming ring:position")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector3(0, -0.0915358, 0)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_y2354"]
+_data = {
+&"RESET": SubResource("Animation_m7jmp"),
+&"water flow": SubResource("Animation_u3cyc")
+}
+
 [node name="Node3D" type="Node3D"]
 
 [node name="WorldEnvironment" type="WorldEnvironment" parent="."]
@@ -132,3 +193,14 @@ surface_material_override/0 = SubResource("StandardMaterial3D_st7n6")
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.049249083, 0)
 mesh = SubResource("PlaneMesh_m7jmp")
 surface_material_override/0 = SubResource("ShaderMaterial_y2354")
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+root_node = NodePath("../water")
+libraries = {
+&"": SubResource("AnimationLibrary_y2354")
+}
+autoplay = "water flow"
+
+[node name="Camera3D" type="Camera3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 0.6735029, 0.73918456, 0, -0.73918456, 0.6735029, 0.012386501, 0.53644687, 0.8630996)
+near = 0.026
