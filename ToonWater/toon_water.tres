@@ -1,9 +1,68 @@
-[gd_resource type="VisualShader" format=3 uid="uid://bfx7nw5ulhsyu"]
+[gd_resource type="VisualShader" load_steps=7 format=3 uid="uid://bfx7nw5ulhsyu"]
+
+[sub_resource type="VisualShaderNodeColorParameter" id="VisualShaderNodeColorParameter_33a5t"]
+output_port_for_preview = 0
+expanded_output_ports = [0]
+parameter_name = "WaterColor"
+
+[sub_resource type="VisualShaderNodeFloatParameter" id="VisualShaderNodeFloatParameter_6ekcp"]
+output_port_for_preview = 0
+parameter_name = "FloatParameter"
+default_value_enabled = true
+default_value = 0.75
+
+[sub_resource type="VisualShaderNodeStep" id="VisualShaderNodeStep_easdx"]
+output_port_for_preview = 0
+
+[sub_resource type="FastNoiseLite" id="FastNoiseLite_gih4y"]
+
+[sub_resource type="NoiseTexture2D" id="NoiseTexture2D_aa035"]
+noise = SubResource("FastNoiseLite_gih4y")
+
+[sub_resource type="VisualShaderNodeTexture" id="VisualShaderNodeTexture_ruyfn"]
+texture = SubResource("NoiseTexture2D_aa035")
 
 [resource]
 code = "shader_type spatial;
 render_mode blend_mix, depth_draw_opaque, depth_test_default, cull_back, diffuse_lambert, specular_schlick_ggx;
 
+uniform float FloatParameter = 0.75;
+uniform sampler2D tex_frg_5;
+uniform vec4 WaterColor : source_color;
 
 
+
+void fragment() {
+// FloatParameter:3
+	float n_out3p0 = FloatParameter;
+
+
+// Texture2D:5
+	vec4 n_out5p0 = texture(tex_frg_5, UV);
+
+
+// Step:4
+	float n_out4p0 = step(n_out3p0, n_out5p0.x);
+
+
+// ColorParameter:2
+	vec4 n_out2p0 = WaterColor;
+	float n_out2p4 = n_out2p0.a;
+
+
+// Output:0
+	ALBEDO = vec3(n_out4p0);
+	ALPHA = n_out2p4;
+
+
+}
 "
+nodes/fragment/2/node = SubResource("VisualShaderNodeColorParameter_33a5t")
+nodes/fragment/2/position = Vector2(-380, 320)
+nodes/fragment/3/node = SubResource("VisualShaderNodeFloatParameter_6ekcp")
+nodes/fragment/3/position = Vector2(-1540, 300)
+nodes/fragment/4/node = SubResource("VisualShaderNodeStep_easdx")
+nodes/fragment/4/position = Vector2(-820, 660)
+nodes/fragment/5/node = SubResource("VisualShaderNodeTexture_ruyfn")
+nodes/fragment/5/position = Vector2(-1520, 1080)
+nodes/fragment/connections = PackedInt32Array(2, 4, 0, 1, 5, 0, 4, 1, 3, 0, 4, 0, 4, 0, 0, 0)
