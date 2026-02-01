@@ -1,7 +1,8 @@
-[gd_scene load_steps=15 format=3 uid="uid://fm0p76em2bx8"]
+[gd_scene load_steps=18 format=3 uid="uid://fm0p76em2bx8"]
 
 [ext_resource type="ArrayMesh" uid="uid://dls8qw3swa7b1" path="res://ground.res" id="1_rs42a"]
 [ext_resource type="Texture2D" uid="uid://ddbpp8qbl8tog" path="res://images.png" id="3_bxm5n"]
+[ext_resource type="Shader" uid="uid://bfx7nw5ulhsyu" path="res://toon_water.tres" id="4_u3cyc"]
 [ext_resource type="ArrayMesh" uid="uid://chef0q862dmai" path="res://rock1.res" id="4_yinx0"]
 
 [sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_bcol5"]
@@ -65,12 +66,19 @@ tracks/0/keys = {
 
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_sy5c8"]
 _data = {
-"RESET": SubResource("Animation_q8qg4"),
-"up_down": SubResource("Animation_5y605")
+&"RESET": SubResource("Animation_q8qg4"),
+&"up_down": SubResource("Animation_5y605")
 }
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_st7n6"]
 albedo_color = Color(0.503769, 0.503769, 0.503768, 1)
+
+[sub_resource type="PlaneMesh" id="PlaneMesh_m7jmp"]
+size = Vector2(1.5, 1.5)
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_y2354"]
+render_priority = 0
+shader = ExtResource("4_u3cyc")
 
 [node name="Node3D" type="Node3D"]
 
@@ -99,7 +107,7 @@ surface_material_override/0 = SubResource("StandardMaterial3D_oqr23")
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="swimming ring"]
 libraries = {
-"": SubResource("AnimationLibrary_sy5c8")
+&"": SubResource("AnimationLibrary_sy5c8")
 }
 autoplay = "up_down"
 
@@ -114,3 +122,8 @@ transform = Transform3D(0.303027, -6.34703e-16, -0.647186, 0.296169, 0.635396, 0
 mesh = ExtResource("4_yinx0")
 skeleton = NodePath("../..")
 surface_material_override/0 = SubResource("StandardMaterial3D_st7n6")
+
+[node name="water" type="MeshInstance3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.045458257, 0)
+mesh = SubResource("PlaneMesh_m7jmp")
+surface_material_override/0 = SubResource("ShaderMaterial_y2354")
