@@ -79,8 +79,9 @@ size = Vector2(1.5, 1.5)
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_y2354"]
 render_priority = 0
 shader = ExtResource("4_u3cyc")
-shader_parameter/FloatParameter = 0.75
 shader_parameter/WaterColor = Color(0.2540559, 0.7350228, 0.99999994, 0.654902)
+shader_parameter/ColorParameter = Color(1, 1, 1, 1)
+shader_parameter/FloatParameter = 0.72
 
 [node name="Node3D" type="Node3D"]
 
