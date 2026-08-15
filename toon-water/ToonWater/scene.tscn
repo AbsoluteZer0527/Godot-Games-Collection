@@ -1,0 +1,206 @@
+[gd_scene load_steps=21 format=3 uid="uid://fm0p76em2bx8"]
+
+[ext_resource type="ArrayMesh" uid="uid://dls8qw3swa7b1" path="res://ground.res" id="1_rs42a"]
+[ext_resource type="Texture2D" uid="uid://ddbpp8qbl8tog" path="res://images.png" id="3_bxm5n"]
+[ext_resource type="Shader" uid="uid://bfx7nw5ulhsyu" path="res://toon_water.tres" id="4_u3cyc"]
+[ext_resource type="ArrayMesh" uid="uid://chef0q862dmai" path="res://rock1.res" id="4_yinx0"]
+
+[sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_bcol5"]
+sky_horizon_color = Color(0.64625, 0.65575, 0.67075, 1)
+ground_horizon_color = Color(0.64625, 0.65575, 0.67075, 1)
+
+[sub_resource type="Sky" id="Sky_en7ds"]
+sky_material = SubResource("ProceduralSkyMaterial_bcol5")
+
+[sub_resource type="Environment" id="Environment_8rgva"]
+background_mode = 2
+sky = SubResource("Sky_en7ds")
+tonemap_mode = 2
+glow_enabled = true
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_qllmd"]
+albedo_color = Color(0.368224, 0.504409, 0.197424, 1)
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_ii0bn"]
+albedo_color = Color(0.711333, 0.324501, 0.112294, 1)
+
+[sub_resource type="TorusMesh" id="TorusMesh_tsxgr"]
+inner_radius = 0.1
+outer_radius = 0.2
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_oqr23"]
+albedo_color = Color(0.843184, 0.843184, 0.843184, 1)
+albedo_texture = ExtResource("3_bxm5n")
+
+[sub_resource type="Animation" id="Animation_q8qg4"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector3(0, -0.0915358, 0)]
+}
+
+[sub_resource type="Animation" id="Animation_5y605"]
+resource_name = "up_down"
+length = 3.0
+loop_mode = 2
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:position")
+tracks/0/interp = 2
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 3),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Vector3(0, -0.077, 0), Vector3(0, -0.047, 0)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_sy5c8"]
+_data = {
+&"RESET": SubResource("Animation_q8qg4"),
+&"up_down": SubResource("Animation_5y605")
+}
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_st7n6"]
+albedo_color = Color(0.503769, 0.503769, 0.503768, 1)
+
+[sub_resource type="PlaneMesh" id="PlaneMesh_m7jmp"]
+size = Vector2(1.5, 1.5)
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_y2354"]
+render_priority = 0
+shader = ExtResource("4_u3cyc")
+shader_parameter/WaterColor = Color(0.2540559, 0.7350228, 0.99999994, 0.654902)
+shader_parameter/ColorParameter = Color(1, 1, 1, 1)
+shader_parameter/FloatParameter = 0.75
+shader_parameter/FoamPower = 200.0
+shader_parameter/WaveSpeed = Vector2(0.02, 0.01)
+
+[sub_resource type="Animation" id="Animation_u3cyc"]
+resource_name = "water flow"
+loop_mode = 2
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 1),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Vector3(0, -0.049249083, 0), Vector3(0, -0.03326252, 0)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("../swimming ring:position")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 1),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Vector3(0, -0.05778455, 0), Vector3(0, -0.04385402, 0)]
+}
+
+[sub_resource type="Animation" id="Animation_m7jmp"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector3(0, -0.049249083, 0)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("../swimming ring:position")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector3(0, -0.0915358, 0)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_y2354"]
+_data = {
+&"RESET": SubResource("Animation_m7jmp"),
+&"water flow": SubResource("Animation_u3cyc")
+}
+
+[node name="Node3D" type="Node3D"]
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="."]
+environment = SubResource("Environment_8rgva")
+
+[node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]
+transform = Transform3D(-0.866023, -0.433016, 0.250001, 0, 0.499998, 0.866027, -0.500003, 0.749999, -0.43301, 0, 0, 0)
+shadow_enabled = true
+
+[node name="ground" type="MeshInstance3D" parent="."]
+mesh = ExtResource("1_rs42a")
+surface_material_override/0 = SubResource("StandardMaterial3D_qllmd")
+metadata/_edit_group_ = true
+
+[node name="ground2" type="MeshInstance3D" parent="ground"]
+transform = Transform3D(0.99, 0, 0, 0, 0.771, 0, 0, 0, 0.99, 0, -0.00565421, 0)
+mesh = ExtResource("1_rs42a")
+skeleton = NodePath("../..")
+surface_material_override/0 = SubResource("StandardMaterial3D_ii0bn")
+
+[node name="swimming ring" type="MeshInstance3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.0915358, 0)
+mesh = SubResource("TorusMesh_tsxgr")
+surface_material_override/0 = SubResource("StandardMaterial3D_oqr23")
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="swimming ring"]
+libraries = {
+&"": SubResource("AnimationLibrary_sy5c8")
+}
+autoplay = "up_down"
+
+[node name="Rock1" type="MeshInstance3D" parent="."]
+transform = Transform3D(0.170319, 0, 0, 0, 0.170319, 0, 0, 0, 0.170319, 0.0575079, -0.0306301, 0.592343)
+mesh = ExtResource("4_yinx0")
+surface_material_override/0 = SubResource("StandardMaterial3D_st7n6")
+metadata/_edit_group_ = true
+
+[node name="Rock2" type="MeshInstance3D" parent="Rock1"]
+transform = Transform3D(0.303027, -6.34703e-16, -0.647186, 0.296169, 0.635396, 0.138673, 0.575443, -0.327026, 0.269434, 0.901726, -0.0116176, -0.244682)
+mesh = ExtResource("4_yinx0")
+skeleton = NodePath("../..")
+surface_material_override/0 = SubResource("StandardMaterial3D_st7n6")
+
+[node name="water" type="MeshInstance3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.049249083, 0)
+mesh = SubResource("PlaneMesh_m7jmp")
+surface_material_override/0 = SubResource("ShaderMaterial_y2354")
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+root_node = NodePath("../water")
+libraries = {
+&"": SubResource("AnimationLibrary_y2354")
+}
+autoplay = "water flow"
+
+[node name="Camera3D" type="Camera3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 0.6735029, 0.73918456, 0, -0.73918456, 0.6735029, 0.012386501, 0.53644687, 0.8630996)
+near = 0.026
